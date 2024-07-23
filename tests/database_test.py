@@ -1,16 +1,17 @@
-import unittest
 from unittest.mock import patch, MagicMock
 import pytest
 from bun import Bun
 from ingredient import Ingredient
+from tests.data import ingredient_hot_sauce, ingredient_sour_cream, ingredient_hot_sauce_price, \
+    ingredient_sour_cream_price, black_bun, black_bun_price, white_bun, white_bun_price, red_bun, red_bun_price
 
 
-class TestDatabase():
+class TestDatabase:
 
     @pytest.mark.parametrize("name, price", [
-        ("black bun", 100),
-        ("white bun", 200),
-        ("red bun", 300)
+        (black_bun, black_bun_price),
+        (white_bun, white_bun_price),
+        (red_bun, red_bun_price)
     ])
     def test_available_buns(self, name, price, database):
         buns = database.available_buns()
@@ -20,8 +21,8 @@ class TestDatabase():
         assert price in bun_prices
 
     @pytest.mark.parametrize("name, price", [
-        ("hot sauce", 100),
-        ("sour cream", 200)
+        (ingredient_hot_sauce, ingredient_hot_sauce_price),
+        (ingredient_sour_cream, ingredient_sour_cream_price)
     ])
     def test_available_ingredients(self, name, price, database):
         ingredients = database.available_ingredients()
